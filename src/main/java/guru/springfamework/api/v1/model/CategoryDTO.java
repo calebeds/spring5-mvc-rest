@@ -1,8 +1,11 @@
 package guru.springfamework.api.v1.model;
 
-/**
- * Created by jt on 9/24/17.
- */
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
 public class CategoryDTO {
     private Long id;
     private String name;
