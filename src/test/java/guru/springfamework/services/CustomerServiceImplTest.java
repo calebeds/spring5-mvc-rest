@@ -90,4 +90,24 @@ public class CustomerServiceImplTest {
         //then
         assertEquals(savedDto.getFirstName(), "Fred");
     }
+
+    @Test
+    public void testSaveCustomerByDTO() {
+        //given
+        CustomerDTO customerDTO = new CustomerDTO();
+        customerDTO.setFirstName("Fred");
+        customerDTO.setLastName("Flinstone");
+
+        Customer returnedCustomer = new Customer();
+        returnedCustomer.setFirstName(customerDTO.getFirstName());
+        returnedCustomer.setLastName(customerDTO.getLastName());
+
+        when(customerRepository.save(any())).thenReturn(returnedCustomer);
+
+        //when
+        CustomerDTO savedDto = customerService.saveCustomerByDTO(2L, customerDTO);
+
+        //then
+        assertEquals(savedDto.getFirstName(), "Fred");
+    }
 }
