@@ -2,6 +2,7 @@ package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
@@ -12,8 +13,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
-    public static final String API_V1_CUSTOMERS = "/api/v1/customers/";
-
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
 
@@ -29,7 +28,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .stream()
                 .map(customer -> {
                     CustomerDTO customerDTO = customerMapper.customerToCustomerDTO(customer);
-                    customerDTO.setCustomerUrl("/api/v1/customer/" + customer.getId());
+                    customerDTO.setCustomerUrl(CustomerController.API_V1_CUSTOMERS + customer.getId());
                     return customerDTO;
                 })
                 .collect(Collectors.toList());
@@ -52,7 +51,7 @@ public class CustomerServiceImpl implements CustomerService {
 
         CustomerDTO returnedDto = customerMapper.customerToCustomerDTO(savedCustomer);
 
-        returnedDto.setCustomerUrl(API_V1_CUSTOMERS + savedCustomer.getId());
+        returnedDto.setCustomerUrl(CustomerController.API_V1_CUSTOMERS + savedCustomer.getId());
 
         return returnedDto;
     }
@@ -78,7 +77,7 @@ public class CustomerServiceImpl implements CustomerService {
                     }
 
                     CustomerDTO returnedDto = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
-                    returnedDto.setCustomerUrl(API_V1_CUSTOMERS + id);
+                    returnedDto.setCustomerUrl(CustomerController.API_V1_CUSTOMERS + id);
 
                     return returnedDto;
                 }).orElseThrow(RuntimeException::new);

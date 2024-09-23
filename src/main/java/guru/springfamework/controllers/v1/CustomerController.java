@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/v1/customers")
+@RequestMapping(CustomerController.API_V1_CUSTOMERS)
 public class CustomerController {
+    public static final String API_V1_CUSTOMERS = "/api/v1/customers/";
+
     private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
