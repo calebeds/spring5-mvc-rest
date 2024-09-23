@@ -18,6 +18,8 @@ import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CustomerServiceImplTest {
@@ -109,5 +111,14 @@ public class CustomerServiceImplTest {
 
         //then
         assertEquals(savedDto.getFirstName(), "Fred");
+    }
+
+    @Test
+    public void deleteCustomerById() throws Exception {
+        Long id = 1L;
+
+        customerRepository.deleteById(id);
+
+        verify(customerRepository, times(1)).deleteById(anyLong());
     }
 }

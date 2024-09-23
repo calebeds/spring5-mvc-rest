@@ -15,9 +15,14 @@ import java.util.Arrays;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -102,7 +107,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    public void testUpdateNewCustomer() throws Exception {
+    public void testUpdateCustomer() throws Exception {
         //given
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName("Fred");
@@ -127,7 +132,7 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
     }
 
     @Test
-    public void testPatchNewCustomer() throws Exception {
+    public void testPatchCustomer() throws Exception {
         //given
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setFirstName("Fred");
@@ -148,5 +153,20 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
                 .andExpect(jsonPath("$.last_name", equalTo("Flinstone")))
                 .andExpect(jsonPath("$.customer_url", equalTo("/api/v1/customers/1")));
 
+    }
+
+    @Test
+    public void testDeleteCustomer() throws Exception {
+        //given
+
+        //when
+        doNothing().when(customerService).deleteCustomerById(anyLong());
+
+        //then
+        mockMvc.perform(delete("/api/v1/customers/1")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        verify(customerService, times(1)).deleteCustomerById(anyLong());
     }
 }
