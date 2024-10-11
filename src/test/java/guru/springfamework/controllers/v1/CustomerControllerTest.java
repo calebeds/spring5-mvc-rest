@@ -63,7 +63,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         when(customerService.getAllCustomers()).thenReturn(Arrays.asList(customerDTO, customerDTO2));
 
         mockMvc.perform(get(getCustomerUrl())
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.customers",  hasSize(2)));
     }
@@ -78,7 +79,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         when(customerService.getCustomerById(anyLong())).thenReturn(customerDTO);
 
         mockMvc.perform(get(getCustomerUrl() + "1")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.first_name", equalTo("Calebe")));
     }
@@ -100,7 +102,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         //when/then
         mockMvc.perform(post(getCustomerUrl())
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(customerDTO)))
+                        .content(asJsonString(customerDTO))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.first_name", equalTo("Fred")))
                 .andExpect(jsonPath("$.last_name", equalTo("Flinstone")))
@@ -125,7 +128,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         //when/then
         mockMvc.perform(put(getCustomerUrl() + "1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(customerDTO)))
+                        .content(asJsonString(customerDTO))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.first_name", equalTo("Fred")))
                 .andExpect(jsonPath("$.last_name", equalTo("Flinstone")))
@@ -149,7 +153,8 @@ public class CustomerControllerTest extends AbstractRestControllerTest {
         //when/then
         mockMvc.perform(patch(getCustomerUrl() + "1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(customerDTO)))
+                        .content(asJsonString(customerDTO))
+                        .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.first_name", equalTo("Fred")))
                 .andExpect(jsonPath("$.last_name", equalTo("Flinstone")))
