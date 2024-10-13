@@ -1,13 +1,12 @@
 package guru.springfamework.services;
 
 import guru.springfamework.api.v1.mapper.CustomerMapper;
-import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.controllers.v1.CustomerController;
 import guru.springfamework.domain.Customer;
 import guru.springfamework.repositories.CustomerRepository;
+import guru.springframework.model.CustomerDTO;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,12 +67,12 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerDTO patchCustomer(Long id, CustomerDTO customerDTO) {
         return customerRepository.findById(id).map(
                 customer -> {
-                    if(customerDTO.getFirstName() != null) {
-                        customer.setFirstName(customerDTO.getFirstName());
+                    if(customerDTO.getFirstname() != null) {
+                        customer.setFirstName(customerDTO.getFirstname());
                     }
 
-                    if(customerDTO.getLastName() != null) {
-                        customer.setLastName(customerDTO.getLastName());
+                    if(customerDTO.getLastname() != null) {
+                        customer.setLastName(customerDTO.getLastname());
                     }
 
                     CustomerDTO returnedDto = customerMapper.customerToCustomerDTO(customerRepository.save(customer));
