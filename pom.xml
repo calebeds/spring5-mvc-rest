@@ -18,10 +18,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
-<!--	<modules>-->
-<!--		<module>rest-model</module>-->
-<!--		<module>spring5-mvc-rest-app</module>-->
-<!--	</modules>-->
+	<modules>
+		<module>rest-model</module>
+		<module>spring5-mvc-rest-app</module>
+	</modules>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
